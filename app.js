@@ -1,18 +1,34 @@
+// const express = require('express');
+// const app = express();
+// const routes = require('./routes');
+
+// app.use(express.json());
+// app.use('/api', routes);
+
+// app.use((req, res, next) => {
+//     const err = new Error("Not Found");
+//     err.status = 404;
+//     next(err);
+// });
+
+// app.use((err, req, res, next) => {
+//     res.status(err.status || 500);
+//     res.json({
+//         error: {
+//             message: err.message
+//         }
+//     });
+// });
 'use strict';
 
 // load modules
 const express = require('express');
-const morgan = require('morgan');
-const createError = require('http-errors');
 const path = require('path');
-const logger = require('morgan');
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/courses');
 const usersRouter = require('./routes/users');
 
 // create the Express app
 const app = express();
-
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -23,10 +39,6 @@ app.use('/users', usersRouter);
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
-
-
-// setup morgan which gives us http request logging
-app.use(morgan('dev'));
 
 // TODO setup your api routes here
 
@@ -58,11 +70,3 @@ app.use((err, req, res, next) => {
 
 
 module.exports = app;
-
-// // set our port
-// app.set('port', process.env.PORT || 5000);
-
-// // start listening on our port
-// const server = app.listen(app.get('port'), () => {
-//   console.log(`Express server is listening on port ${server.address().port}`);
-// });
