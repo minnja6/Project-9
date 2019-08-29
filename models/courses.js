@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     id: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
       validate: {
         notEmpty: {
           msg: "ID is required"
@@ -37,13 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     estimatedTime: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     materialsNeeded: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   }, {});
   Course.associate = function(models) {
-    // associations can be defined here
+    Course.hasMany(users);
   };
+  return Course;
 }

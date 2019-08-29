@@ -1,7 +1,7 @@
 {
   "name": "techdegree-fullstackjs-rest-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "We've supplied the following files for you to use:",
   "main": "app.js",
   "scripts": {
     "start": "nodemon ./bin/www",
@@ -22,6 +22,15 @@
     "morgan": "^1.9.0",
     "promise.prototype.finally": "^3.1.0",
     "sequelize": "^5.17.0",
+    "sequelize-cli": "^5.5.0",
     "sqlite3": "^4.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minnja6/Project-9.git"
+  },
+  "bugs": {
+    "url": "https://github.com/minnja6/Project-9/issues"
+  },
+  "homepage": "https://github.com/minnja6/Project-9#readme"
 }
