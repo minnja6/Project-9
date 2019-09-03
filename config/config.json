@@ -5,10 +5,10 @@
   },
   "test": {
     "dialect": "sqlite",
-    "storage": "fsjstd-restapi.db"
+    "storage": "test.db"
   },
   "production": {
     "dialect": "sqlite",
-    "storage": "fsjstd-restapi.db"
+    "storage": "production.db"
   }
 }
