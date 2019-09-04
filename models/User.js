@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     //hasMany associations 
-    User.hasMany(models.Courses);
+    User.hasMany(models.Course);
   };
   return User;
 }
