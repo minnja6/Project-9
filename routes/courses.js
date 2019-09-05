@@ -57,18 +57,18 @@ router.post('/courses', (req, res, next) => {
 
 
 //Send a PUT request to /quotes/:id to UPDATE (edit) a course
-router.put('/courses/:id', asyncHandler(async (req, res) => {
-    const course = await Course.getCourse(req.params.id);
-    if (course) {
-        course.course = req.body.course;
-        course.description = req.body.description;
-        course.title = req.body.title;
-        await Course.updateCourse(course);
-        res.status(204).end();
-    } else {
-        res.status(404).json({ message: "Course Not Found" });
-    }
-}));
+// router.put('/courses/:id', asyncHandler(async (req, res) => {
+//     const course = await Course.get(req.params.id);
+//     if (course) {
+//         course.course = req.body.course;
+//         course.description = req.body.description;
+//         course.title = req.body.title;
+//         await Course.updateCourse(course);
+//         res.status(204).end();
+//     } else {
+//         res.status(404).json({ message: "Course Not Found" });
+//     }
+// }));
 
 //Send a DELETE request to /quotes/:id DELETE a course
 // router.delete("/courses/:id", asyncHandler(async (req, res, next) => {

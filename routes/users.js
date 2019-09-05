@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const { User } = require('../models');
+//using the require method to import the check() and validationResult() methods from express-validator
+const { check, validationResult } = require('express-validator');
+//calling the check() method and passing in the field name validate
+const nameValidator = check('name');
+//
 
 
 /*The GET/api/users route, retrieves a list of user accounts and returns it as JSON*/
@@ -16,16 +21,16 @@ router.get('/users', function (req, res) {
 });
 });
 
-// router.get('/users', (req, res) => {
-//   res.json(users);
-// });
+
+router.get('/users', (req, res) => {
+  res.json(users);
+});
 
 //The POST/api/users route creates a new user account
 router.post('/users', (req,res) => {
 //Get the user from the request body
 const user = req.body;
-//Add the user to the 'users' array
-users.push(user);
+
 //Set the status to 201 Created and end the response
 res.status(201).end();
 });
