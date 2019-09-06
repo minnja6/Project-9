@@ -1,8 +1,8 @@
 'use strict';
 
 //Course model format and validation
-
 module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.import("./user");
   const Course = sequelize.define('Course', {
     title: {
       type: DataTypes.STRING,

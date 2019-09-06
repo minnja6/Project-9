@@ -36,25 +36,55 @@ router.get('/courses/:id', function(req, res, next) {
 });
 });
 //Send a POST request to /courses to CREATE a new course
-router.post('/courses', (req, res, next) => {
-    Course.create(req.body).then(function (course) {
-        let { title, id, userId, description } = req.body;
-        // redirects to home page after creating course
-        res.redirect('/')      
-    })
-        .catch(err => {
-            if (err.name === "SequelizeValidationError") {
-                res.json({
-                    errors: err.errors
-                })
-            } else {
-                throw error;
-            }
-        }).catch(function (error) {
-            res.send(500, error);
+// router.post('/courses', (req, res, next) => {
+//     Course.create(req.body).then(function (course) {
+//         let { title, id, userId, description } = req.body;
+//         // redirects to home page after creating course
+//         res.redirect('/')      
+//     })
+//         .catch(err => {
+//             if (err.name === "SequelizeValidationError") {
+//                 res.json({
+//                     errors: err.errors
+//                 })
+//             } else {
+//                 throw error;
+//             }
+//         }).catch(function (error) {
+//             res.send(500, error);
+//         });
+// });
+//Send a POST request to /courses to CREATE a new course
+router.post("/courses", (req, res, next) => {
+    if (req.body.title && req.body.description) {
+      const courseData = {
+        user: req.user,
+        title: req.body.title,
+        description: req.body.description,
+        estimatedTime: req.body.estimatedTime,
+        materialsNeeded: req.body.materialsNeeded
+      };
+      if (req.user) {
+        Course.create(courseData, function(error) {
+          if (error) {
+            return next(error);
+          } else {
+            res.location("/courses");
+            res.sendStatus(201);
+          }
         });
-});
-
+      } else {
+        const error = new Error("Please login to create post.");
+        error.status = 400;
+        return next(error);
+      }
+    } else {
+      const error = new Error("Title and description are required.");
+      error.status = 400;
+      return next(error);
+    }
+    console.log(req.body);
+  });
 
 //Send a PUT request to /quotes/:id to UPDATE (edit) a course
 // router.put('/courses/:id', asyncHandler(async (req, res) => {
