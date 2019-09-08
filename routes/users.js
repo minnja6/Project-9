@@ -5,7 +5,6 @@ const auth = require('basic-auth');
 const bcryptjs = require('bcryptjs');
 const { User } = require('../models');
 
-//AsyncHandler 
 function asyncHandler(cb){
   return async (req, res, next)=>{
     try {
@@ -17,7 +16,8 @@ function asyncHandler(cb){
   };
 }
 
-//Authentication middleware 
+
+//Authentication middlewear
 const authenticateUser = async (req,res,next) => {
   let message = null;
   const credentials = auth(req);
@@ -56,7 +56,7 @@ router.get('/users',authenticateUser, asyncHandler( async (req,res) => {
 }));
 
 
-// Creates user, sets the Location header to "/", and returns no content
+// Creates a user, sets the Location header to "/", and returns no content
 router.post('/users', asyncHandler( async (req,res) => {
   const errors = [];
   const userContent = req.body
