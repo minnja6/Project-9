@@ -3,8 +3,15 @@ const router = express.Router();
 const { Course } = require('../models');
 const { check, validationResult } = require('express-validator');
 const authentication = require('./auth');
-
-
+// Updating the Sequelize model queries for the Courses endpoint GET routes to filter out
+//the following properties.
+const filter = {
+    include: [{
+      model: User,
+      attributes: {exclude: ['password', 'createdAt', 'updatedAt']}
+    }],
+    attributes: {exclude: ['createdAt', 'updatedAt']}
+  }
 
 function asyncHandler(cb) {
     return async (req, res, next) => {
@@ -19,7 +26,7 @@ function asyncHandler(cb) {
 
 // Send a GET request to courses to view all courses
 router.get('/courses', asyncHandler(async (req, res) => {
-    Course.findAll().then(courses => {
+    Course.findAll(filter).then(courses => {
         if (courses) {
             res.status(200).json(courses);
         } else {
@@ -33,7 +40,7 @@ router.get('/courses', asyncHandler(async (req, res) => {
 
 //GET individual course by id
 router.get('/courses/:id', asyncHandler(async (req, res, next) => {
-    Course.findByPk(req.params.id).then(course => {
+    Course.findByPk(req.params.id, filter).then(course => {
       if(course) {
         res.status(200).json(course);
     } else {
@@ -69,7 +76,6 @@ router.post('/courses/', [
       err.status = 400;
       next(err);
     } else {
-  
       const course = new Course ({
         userId: req.body.userId,
         title: req.body.title,
