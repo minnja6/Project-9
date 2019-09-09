@@ -16,8 +16,7 @@ function asyncHandler(cb){
   };
 }
 
-
-//Authentication middlewear
+//Authentication middleware
 const authenticateUser = async (req,res,next) => {
   let message = null;
   const credentials = auth(req);
@@ -37,7 +36,7 @@ const authenticateUser = async (req,res,next) => {
         message = `Authentication failure for username: ${user.emailAddress}`
       }
     }else {
-      message = `User not found for username: ${credentials.name}`;
+      message = "User not found for provided username";
     }
   }else {
     message = 'Auth header not found';

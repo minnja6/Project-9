@@ -28,13 +28,12 @@ const authentication = async (req, res, next) => {
         const authenticated = bcryptjs
           .compareSync(credentials.pass, user.password);
   
-        // If the passwords match...
+        // If authenticated 
         if (authenticated) {
           console.log(`Authentication successful for username: ${user.emailAddress}`);
 
-          // Then store the retrieved user object on the request object
-          // so any middleware functions that follow this middleware function
-          // will have access to the user's information.
+          // store the retrieved user object on the request
+          // so any middleware functions will have access to the user's info
           req.currentUser = user;
         } else {
           message = `Authentication failure for username: ${user.emailAddress}`;
@@ -47,25 +46,16 @@ const authentication = async (req, res, next) => {
       message = 'Auth header not found';
     }
   
-    // If user authentication failed...
+    // If user authentication fails
     if (message) {
       console.warn(message);
   
-      // Return a response with a 401 Unauthorized HTTP status code.
+      // Return a response with a 401 status code.
       res.status(401).json({ message: 'Access Denied' });
     } else {
-      // Or if user authentication succeeded...
-      // Call the next() method.
+      // if user authentication succeeded call the next method.
       next();
     }
   };
-
-// router.get('/', authenticateUser, (req, res) => {
-//     const user = req.currentUser;
-//     res.json({
-//         name: user.name,
-//         username: user.emailAddress
-//     })
-// })
 
 module.exports = authentication;
