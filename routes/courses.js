@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Course } = require('../models');
+const { Course, User } = require('../models');
 const { check, validationResult } = require('express-validator');
 const authentication = require('./auth');
 // Updating the Sequelize model queries for the Courses endpoint GET routes to filter out
